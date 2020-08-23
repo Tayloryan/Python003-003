@@ -1,0 +1,27 @@
+import requests
+from bs4 import BeautifulSoup as bs
+import lxml.etree
+
+def get_url_name(myurl):
+    user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"
+
+    # myurl = 'https://movie.douban.com/top250'
+
+    # 电影详情页面
+    # movie_url = 'https://movie.douban.com/subject/1292052/'
+
+    # 声明为字典使用字典的语法赋值
+    header = {}
+    header['user-agent'] = user_agent
+
+    # 获取网络请求结果
+    response = requests.get(movie_url, headers=header)
+
+    # xml化处理
+    selector = lxml.etree.HTML(response.text)
+
+    file_name = selector.xpath('//*[@id="content"]/h1/span[1]/text()')
+    print(f'电影名称：{file_name}')
+
+# print(response.text)
+# print(response.status_code)
